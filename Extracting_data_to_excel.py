@@ -35,7 +35,7 @@ if __name__ == "__main__":
             count+=1
             all_data.append(result)
             if count==53 or count==len(pdf_files):
-                print("█", end="")
+                print(f"█", end="")
                 count=0
 
     output_path = os.path.join(output_folder, "Modified_data.xlsx")
