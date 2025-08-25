@@ -1,0 +1,72 @@
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.vectorstores import FAISS
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.document_loaders import TextLoader
+from langchain.chains import RetrievalQA
+from langchain.llms import HuggingFacePipeline
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
+from openpyxl import Workbook, load_workbook
+import os
+
+excel_file = "features.xlsx"
+
+
+def writeInSheets(file_name, tumor_size, er, pr, her2):
+
+    if not os.path.exists(excel_file):
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Features"
+
+        ws.cell(row=1, column=1, value="File Name")
+        ws.cell(row=1, column=2, value="Tumor Size")
+        ws.cell(row=1, column=3, value="ER")
+        ws.cell(row=1, column=4, value="PR")
+        ws.cell(row=1, column=5, value="HER2")
+        wb.save(excel_file)
+
+    wb = load_workbook(excel_file)
+    ws = wb.active
+
+    next_row = ws.max_row + 1
+
+ 
+    ws.cell(row=next_row, column=1, value=file_name)
+    ws.cell(row=next_row, column=2, value=tumor_size)
+    ws.cell(row=next_row, column=3, value=er)
+    ws.cell(row=next_row, column=4, value=pr)
+    ws.cell(row=next_row, column=5, value=her2)
+
+    wb.save(excel_file)
+
+loader = TextLoader("file.txt") 
+documents = loader.load()
+splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+docs = splitter.split_documents(documents)
+
+embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+db = FAISS.from_documents(docs, embeddings)
+retriever = db.as_retriever(search_kwargs={"k": 2})
+
+model_name = "google/flan-t5-base"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+
+hf_pipeline = pipeline("text2text-generation", model=model, tokenizer=tokenizer, max_length=512)
+llm = HuggingFacePipeline(pipeline=hf_pipeline)
+
+qa = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
+
+q1 = "What is the tumor size?"
+q2 = "is er/esterogen receipter yes(value>0) or no(0)?"
+q3 = "is pr/postesterone receipter yes(value>0) or no(0)?"
+q4 = "is her-2/neu yes(1) or no(2)?"
+
+tumor_size = qa.run(q1)
+er = qa.run(q2)
+pr = qa.run(q3)
+her2 = qa.run(q4)
+
+file_name = os.path.splitext("your_text.txt")[0]
+
+writeInSheets(file_name, tumor_size, er, pr, her2)
