@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 from openpyxl import Workbook, load_workbook
 import os
 
-excel_file = "features.xlsx"
+excel_file = "Modified_data.xlsx"
 
 
 def writeInSheets(file_name, tumor_size, er, pr, her2):
