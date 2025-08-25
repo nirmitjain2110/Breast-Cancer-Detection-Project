@@ -42,4 +42,4 @@ if __name__ == "__main__":
     df = pd.DataFrame(all_data)
     df.to_excel(output_path, index=False)
 
-    print(f"\n✅ Processed {len(all_data)} PDF files and saved to {output_path}")
+    print(f"\n Processed {len(all_data)} PDF files and saved to {output_path}")
