@@ -1,0 +1,10 @@
+##Breast Cancer Research Project Log
+
+-Collected pathology reports (scanned + text-based).
+-Decided to extract key clinical variables (tumour size, margins, etc).
+-Implemented OCR pipeline (Pillow + Tesseract) for scanned reports.
+-Choose to store extracted data in Excel initially; later will compare Firebase (online) vs PostgreSQL (offline) for database storage.
+-Applied RAG for structured variable extraction from text.
+-Briefly considered Agentic AI automation but decided against it after senior feedback (would add unnecessary complexity).
+-Tested Gemini API for text extraction – achieved fast & accurate results.
+-Hit API limits with Gemini – considering upgrading to paid tier.
