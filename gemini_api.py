@@ -104,4 +104,4 @@ for index, row in df.head(5).iterrows():
     # 5. Write the extracted results to the output Excel file
     writeInSheets(file_name, tumor_size, er, pr, her2)
 
-print(f"\n✅ Processing complete. All data written to {output_excel_file}")
+print(f"\n Processing complete. All data written to {output_excel_file}")
