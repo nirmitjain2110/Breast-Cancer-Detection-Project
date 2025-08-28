@@ -5,8 +5,6 @@ import pandas as pd
 from concurrent.futures import ProcessPoolExecutor
 
 input_folder = "Data"
-output_folder = "Modified_data"
-os.makedirs(output_folder, exist_ok=True)
 
 def process_pdf(filename):
     pdf_path = os.path.join(input_folder, filename)
@@ -22,7 +20,7 @@ def process_pdf(filename):
         text = pytesseract.image_to_string(image)
         full_text += text.strip() + "\n"
 
-    return {"File_name": base_name, "Extracted Text": full_text.strip()}
+    return {"File_name": base_name, "ExtractedText": full_text.strip()}
 
 if __name__ == "__main__":
     pdf_files = [f for f in os.listdir(input_folder) if f.lower().endswith(".pdf")]
@@ -35,10 +33,10 @@ if __name__ == "__main__":
             count+=1
             all_data.append(result)
             if count==53 or count==len(pdf_files):
-                print("█", end="")
+                print(".", end="")
                 count=0
 
-    output_path = os.path.join(output_folder, "Modified_data.xlsx")
+    output_path = "Modified_data.xlsx"
     df = pd.DataFrame(all_data)
     df.to_excel(output_path, index=False)
 
