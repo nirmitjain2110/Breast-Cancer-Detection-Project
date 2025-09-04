@@ -227,4 +227,8 @@ for index, row in df.iterrows():
 
     writeInSheets(file_name, tumor_size, er, pr, her2)
 
+<<<<<<< HEAD
 print(f"\n✅ Processing complete. All data written to {output_excel_file}")
+=======
+print(f"\n Processing complete. All data written to {output_excel_file}")
+>>>>>>> 2c86134149a1c9dea64ecdd3016126a314c0df6c
