@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore")
 
 # ========= 1. Load the Excel files =========
 gt_path = "GroundTruth.xlsx"
-pred_gemini_path = "features_openai_4.1nano_zs.xlsx"
+pred_gemini_path = "biomarkers_gemini_with_steps.xlsx"
 
 df_gt = pd.read_excel(gt_path)
 df_pred_gemini = pd.read_excel(pred_gemini_path)

@@ -1,0 +1,155 @@
+Model,Target,Class,Support (n),Precision,Recall (Sensitivity),Specificity,F1,Overall Accuracy,Accuracy 95% CI,N Matched Records
+GPT-4o-mini (Zero-shot),HER2,equivocal,0,0.0,0.0,0.973,0.0,0.9021,"[0.877, 0.927]",521
+GPT-4o-mini (Zero-shot),HER2,negative,221,0.916,0.932,0.937,0.924,0.9021,"[0.877, 0.927]",521
+GPT-4o-mini (Zero-shot),HER2,not reported,251,0.967,0.932,0.97,0.949,0.9021,"[0.877, 0.927]",521
+GPT-4o-mini (Zero-shot),HER2,positive,49,0.75,0.612,0.979,0.674,0.9021,"[0.877, 0.927]",521
+GPT-4o-mini (Zero-shot),ER,negative,67,0.894,0.881,0.985,0.887,0.9482,"[0.929, 0.967]",521
+GPT-4o-mini (Zero-shot),ER,not reported,240,0.974,0.946,0.979,0.96,0.9482,"[0.929, 0.967]",521
+GPT-4o-mini (Zero-shot),ER,positive,214,0.937,0.972,0.954,0.954,0.9482,"[0.929, 0.967]",521
+GPT-4o-mini (Zero-shot),PR,negative,106,0.884,0.934,0.969,0.908,0.9424,"[0.923, 0.962]",521
+GPT-4o-mini (Zero-shot),PR,not reported,240,0.974,0.95,0.979,0.962,0.9424,"[0.923, 0.962]",521
+GPT-4o-mini (Zero-shot),PR,positive,175,0.937,0.937,0.968,0.937,0.9424,"[0.923, 0.962]",521
+GPT-4o-mini (Zero-shot),Tumor Size,2-5 cm,288,0.89,0.868,0.867,0.879,0.8004,"[0.768, 0.835]",521
+GPT-4o-mini (Zero-shot),Tumor Size,< 2 cm,99,0.782,0.869,0.943,0.823,0.8004,"[0.768, 0.835]",521
+GPT-4o-mini (Zero-shot),Tumor Size,> 5 cm,62,0.821,0.742,0.978,0.78,0.8004,"[0.768, 0.835]",521
+GPT-4o-mini (Zero-shot),Tumor Size,not reported,72,0.473,0.486,0.913,0.479,0.8004,"[0.768, 0.835]",521
+GPT-4o-mini (Few-shot),HER2,equivocal,0,0.0,0.0,0.969,0.0,0.8676,"[0.839, 0.896]",521
+GPT-4o-mini (Few-shot),HER2,negative,221,0.925,0.833,0.95,0.876,0.8676,"[0.839, 0.896]",521
+GPT-4o-mini (Few-shot),HER2,not reported,251,0.879,0.952,0.878,0.914,0.8676,"[0.839, 0.896]",521
+GPT-4o-mini (Few-shot),HER2,positive,49,0.853,0.592,0.989,0.699,0.8676,"[0.839, 0.896]",521
+GPT-4o-mini (Few-shot),ER,negative,67,0.921,0.866,0.989,0.892,0.9367,"[0.916, 0.956]",521
+GPT-4o-mini (Few-shot),ER,not reported,240,0.924,0.962,0.932,0.943,0.9367,"[0.916, 0.956]",521
+GPT-4o-mini (Few-shot),ER,positive,214,0.957,0.93,0.971,0.943,0.9367,"[0.916, 0.956]",521
+GPT-4o-mini (Few-shot),PR,negative,106,0.913,0.887,0.978,0.9,0.929,"[0.906, 0.950]",521
+GPT-4o-mini (Few-shot),PR,not reported,240,0.92,0.962,0.929,0.941,0.929,"[0.906, 0.950]",521
+GPT-4o-mini (Few-shot),PR,positive,175,0.952,0.909,0.977,0.93,0.929,"[0.906, 0.950]",521
+GPT-4o-mini (Few-shot),Tumor Size,2-5 cm,288,0.903,0.872,0.884,0.887,0.8177,"[0.783, 0.848]",521
+GPT-4o-mini (Few-shot),Tumor Size,< 2 cm,99,0.822,0.889,0.955,0.854,0.8177,"[0.783, 0.848]",521
+GPT-4o-mini (Few-shot),Tumor Size,> 5 cm,62,0.877,0.806,0.985,0.84,0.8177,"[0.783, 0.848]",521
+GPT-4o-mini (Few-shot),Tumor Size,not reported,72,0.468,0.514,0.906,0.49,0.8177,"[0.783, 0.848]",521
+GPT-4o-mini (Chain-of-Thought),HER2,equivocal,0,0.0,0.0,0.979,0.0,0.9117,"[0.887, 0.937]",521
+GPT-4o-mini (Chain-of-Thought),HER2,negative,221,0.919,0.919,0.94,0.919,0.9117,"[0.887, 0.937]",521
+GPT-4o-mini (Chain-of-Thought),HER2,not reported,251,0.96,0.948,0.963,0.954,0.9117,"[0.887, 0.937]",521
+GPT-4o-mini (Chain-of-Thought),HER2,positive,49,0.829,0.694,0.985,0.756,0.9117,"[0.887, 0.937]",521
+GPT-4o-mini (Chain-of-Thought),ER,negative,67,0.882,0.896,0.982,0.889,0.9539,"[0.935, 0.971]",521
+GPT-4o-mini (Chain-of-Thought),ER,not reported,240,0.975,0.962,0.979,0.969,0.9539,"[0.935, 0.971]",521
+GPT-4o-mini (Chain-of-Thought),ER,positive,214,0.954,0.963,0.967,0.958,0.9539,"[0.935, 0.971]",521
+GPT-4o-mini (Chain-of-Thought),PR,negative,106,0.907,0.915,0.976,0.911,0.9482,"[0.929, 0.967]",521
+GPT-4o-mini (Chain-of-Thought),PR,not reported,240,0.971,0.971,0.975,0.971,0.9482,"[0.929, 0.967]",521
+GPT-4o-mini (Chain-of-Thought),PR,positive,175,0.943,0.937,0.971,0.94,0.9482,"[0.929, 0.967]",521
+GPT-4o-mini (Chain-of-Thought),Tumor Size,2-5 cm,288,0.887,0.76,0.88,0.819,0.7332,"[0.697, 0.770]",521
+GPT-4o-mini (Chain-of-Thought),Tumor Size,< 2 cm,99,0.81,0.818,0.955,0.814,0.7332,"[0.697, 0.770]",521
+GPT-4o-mini (Chain-of-Thought),Tumor Size,> 5 cm,62,0.783,0.758,0.972,0.77,0.7332,"[0.697, 0.770]",521
+GPT-4o-mini (Chain-of-Thought),Tumor Size,not reported,72,0.307,0.486,0.824,0.376,0.7332,"[0.697, 0.770]",521
+GPT-4.1-nano (Zero-shot),HER2,equivocal,0,0.0,0.0,0.939,0.0,0.8388,"[0.806, 0.869]",521
+GPT-4.1-nano (Zero-shot),HER2,negative,221,0.901,0.91,0.927,0.905,0.8388,"[0.806, 0.869]",521
+GPT-4.1-nano (Zero-shot),HER2,not reported,251,0.953,0.817,0.963,0.88,0.8388,"[0.806, 0.869]",521
+GPT-4.1-nano (Zero-shot),HER2,positive,49,0.608,0.633,0.958,0.62,0.8388,"[0.806, 0.869]",521
+GPT-4.1-nano (Zero-shot),ER,negative,67,0.813,0.91,0.969,0.859,0.8752,"[0.846, 0.904]",521
+GPT-4.1-nano (Zero-shot),ER,not reported,240,0.974,0.792,0.982,0.874,0.8752,"[0.846, 0.904]",521
+GPT-4.1-nano (Zero-shot),ER,positive,214,0.817,0.958,0.85,0.882,0.8752,"[0.846, 0.904]",521
+GPT-4.1-nano (Zero-shot),PR,negative,106,0.838,0.925,0.954,0.879,0.8925,"[0.866, 0.919]",521
+GPT-4.1-nano (Zero-shot),PR,not reported,240,0.971,0.838,0.979,0.899,0.8925,"[0.866, 0.919]",521
+GPT-4.1-nano (Zero-shot),PR,positive,175,0.843,0.949,0.91,0.892,0.8925,"[0.866, 0.919]",521
+GPT-4.1-nano (Zero-shot),Tumor Size,2-5 cm,288,0.906,0.868,0.888,0.887,0.8157,"[0.783, 0.848]",521
+GPT-4.1-nano (Zero-shot),Tumor Size,< 2 cm,99,0.791,0.919,0.943,0.85,0.8157,"[0.783, 0.848]",521
+GPT-4.1-nano (Zero-shot),Tumor Size,> 5 cm,62,0.823,0.823,0.976,0.823,0.8157,"[0.783, 0.848]",521
+GPT-4.1-nano (Zero-shot),Tumor Size,not reported,72,0.485,0.458,0.922,0.471,0.8157,"[0.783, 0.848]",521
+GPT-4.1-nano (Few-shot),HER2,equivocal,0,0.0,0.0,0.939,0.0,0.8388,"[0.804, 0.869]",521
+GPT-4.1-nano (Few-shot),HER2,negative,221,0.901,0.91,0.927,0.905,0.8388,"[0.804, 0.869]",521
+GPT-4.1-nano (Few-shot),HER2,not reported,251,0.953,0.817,0.963,0.88,0.8388,"[0.804, 0.869]",521
+GPT-4.1-nano (Few-shot),HER2,positive,49,0.608,0.633,0.958,0.62,0.8388,"[0.804, 0.869]",521
+GPT-4.1-nano (Few-shot),ER,negative,67,0.813,0.91,0.969,0.859,0.8752,"[0.846, 0.902]",521
+GPT-4.1-nano (Few-shot),ER,not reported,240,0.974,0.792,0.982,0.874,0.8752,"[0.846, 0.902]",521
+GPT-4.1-nano (Few-shot),ER,positive,214,0.817,0.958,0.85,0.882,0.8752,"[0.846, 0.902]",521
+GPT-4.1-nano (Few-shot),PR,negative,106,0.838,0.925,0.954,0.879,0.8925,"[0.866, 0.918]",521
+GPT-4.1-nano (Few-shot),PR,not reported,240,0.971,0.838,0.979,0.899,0.8925,"[0.866, 0.918]",521
+GPT-4.1-nano (Few-shot),PR,positive,175,0.843,0.949,0.91,0.892,0.8925,"[0.866, 0.918]",521
+GPT-4.1-nano (Few-shot),Tumor Size,2-5 cm,288,0.906,0.868,0.888,0.887,0.8157,"[0.783, 0.846]",521
+GPT-4.1-nano (Few-shot),Tumor Size,< 2 cm,99,0.791,0.919,0.943,0.85,0.8157,"[0.783, 0.846]",521
+GPT-4.1-nano (Few-shot),Tumor Size,> 5 cm,62,0.823,0.823,0.976,0.823,0.8157,"[0.783, 0.846]",521
+GPT-4.1-nano (Few-shot),Tumor Size,not reported,72,0.485,0.458,0.922,0.471,0.8157,"[0.783, 0.846]",521
+GPT-4.1-nano (Chain-of-Thought),HER2,equivocal,0,0.0,0.0,0.969,0.0,0.881,"[0.852, 0.908]",521
+GPT-4.1-nano (Chain-of-Thought),HER2,negative,221,0.935,0.851,0.957,0.891,0.881,"[0.852, 0.908]",521
+GPT-4.1-nano (Chain-of-Thought),HER2,not reported,251,0.902,0.956,0.904,0.928,0.881,"[0.852, 0.908]",521
+GPT-4.1-nano (Chain-of-Thought),HER2,positive,49,0.816,0.633,0.985,0.713,0.881,"[0.852, 0.908]",521
+GPT-4.1-nano (Chain-of-Thought),ER,negative,67,0.902,0.821,0.987,0.859,0.9271,"[0.902, 0.948]",521
+GPT-4.1-nano (Chain-of-Thought),ER,not reported,240,0.907,0.975,0.915,0.94,0.9271,"[0.902, 0.948]",521
+GPT-4.1-nano (Chain-of-Thought),ER,positive,214,0.96,0.907,0.974,0.933,0.9271,"[0.902, 0.948]",521
+GPT-4.1-nano (Chain-of-Thought),PR,negative,106,0.904,0.802,0.978,0.85,0.9098,"[0.885, 0.935]",521
+GPT-4.1-nano (Chain-of-Thought),PR,not reported,240,0.893,0.975,0.9,0.932,0.9098,"[0.885, 0.935]",521
+GPT-4.1-nano (Chain-of-Thought),PR,positive,175,0.939,0.886,0.971,0.912,0.9098,"[0.885, 0.935]",521
+GPT-4.1-nano (Chain-of-Thought),Tumor Size,2-5 cm,288,0.905,0.826,0.893,0.864,0.7812,"[0.745, 0.816]",521
+GPT-4.1-nano (Chain-of-Thought),Tumor Size,< 2 cm,99,0.816,0.848,0.955,0.832,0.7812,"[0.745, 0.816]",521
+GPT-4.1-nano (Chain-of-Thought),Tumor Size,> 5 cm,62,0.839,0.758,0.98,0.797,0.7812,"[0.745, 0.816]",521
+GPT-4.1-nano (Chain-of-Thought),Tumor Size,not reported,72,0.384,0.528,0.864,0.444,0.7812,"[0.745, 0.816]",521
+GPT-5-nano (Zero-shot),HER2,equivocal,0,0.0,0.0,0.983,0.0,0.9194,"[0.894, 0.940]",521
+GPT-5-nano (Zero-shot),HER2,negative,221,0.913,0.95,0.933,0.931,0.9194,"[0.894, 0.940]",521
+GPT-5-nano (Zero-shot),HER2,not reported,251,0.967,0.944,0.97,0.956,0.9194,"[0.894, 0.940]",521
+GPT-5-nano (Zero-shot),HER2,positive,49,0.865,0.653,0.989,0.744,0.9194,"[0.894, 0.940]",521
+GPT-5-nano (Zero-shot),ER,negative,67,0.921,0.866,0.989,0.892,0.9482,"[0.929, 0.965]",521
+GPT-5-nano (Zero-shot),ER,not reported,240,0.966,0.958,0.972,0.962,0.9482,"[0.929, 0.965]",521
+GPT-5-nano (Zero-shot),ER,positive,214,0.936,0.963,0.954,0.949,0.9482,"[0.929, 0.965]",521
+GPT-5-nano (Zero-shot),PR,negative,106,0.931,0.887,0.983,0.908,0.9405,"[0.921, 0.960]",521
+GPT-5-nano (Zero-shot),PR,not reported,240,0.971,0.962,0.975,0.967,0.9405,"[0.921, 0.960]",521
+GPT-5-nano (Zero-shot),PR,positive,175,0.907,0.943,0.951,0.924,0.9405,"[0.921, 0.960]",521
+GPT-5-nano (Zero-shot),Tumor Size,2-5 cm,288,0.904,0.878,0.884,0.891,0.8215,"[0.791, 0.854]",521
+GPT-5-nano (Zero-shot),Tumor Size,< 2 cm,99,0.809,0.899,0.95,0.852,0.8215,"[0.791, 0.854]",521
+GPT-5-nano (Zero-shot),Tumor Size,> 5 cm,62,0.862,0.806,0.983,0.833,0.8215,"[0.791, 0.854]",521
+GPT-5-nano (Zero-shot),Tumor Size,not reported,72,0.493,0.5,0.918,0.497,0.8215,"[0.791, 0.854]",521
+GPT-5-nano (Chain-of-Thought),HER2,equivocal,0,0.0,0.0,0.977,0.0,0.9155,"[0.893, 0.937]",521
+GPT-5-nano (Chain-of-Thought),HER2,negative,221,0.92,0.937,0.94,0.928,0.9155,"[0.893, 0.937]",521
+GPT-5-nano (Chain-of-Thought),HER2,not reported,251,0.96,0.948,0.963,0.954,0.9155,"[0.893, 0.937]",521
+GPT-5-nano (Chain-of-Thought),HER2,positive,49,0.889,0.653,0.992,0.753,0.9155,"[0.893, 0.937]",521
+GPT-5-nano (Chain-of-Thought),ER,negative,67,0.921,0.866,0.989,0.892,0.9501,"[0.931, 0.969]",521
+GPT-5-nano (Chain-of-Thought),ER,not reported,240,0.959,0.971,0.964,0.965,0.9501,"[0.931, 0.969]",521
+GPT-5-nano (Chain-of-Thought),ER,positive,214,0.949,0.953,0.964,0.951,0.9501,"[0.931, 0.969]",521
+GPT-5-nano (Chain-of-Thought),PR,negative,106,0.929,0.858,0.983,0.892,0.9424,"[0.921, 0.962]",521
+GPT-5-nano (Chain-of-Thought),PR,not reported,240,0.971,0.975,0.975,0.973,0.9424,"[0.921, 0.962]",521
+GPT-5-nano (Chain-of-Thought),PR,positive,175,0.912,0.949,0.954,0.93,0.9424,"[0.921, 0.962]",521
+GPT-5-nano (Chain-of-Thought),Tumor Size,2-5 cm,288,0.909,0.868,0.893,0.888,0.8138,"[0.779, 0.846]",521
+GPT-5-nano (Chain-of-Thought),Tumor Size,< 2 cm,99,0.829,0.879,0.957,0.853,0.8138,"[0.779, 0.846]",521
+GPT-5-nano (Chain-of-Thought),Tumor Size,> 5 cm,62,0.797,0.823,0.972,0.81,0.8138,"[0.779, 0.846]",521
+GPT-5-nano (Chain-of-Thought),Tumor Size,not reported,72,0.468,0.5,0.909,0.483,0.8138,"[0.779, 0.846]",521
+Gemini-2.5-flash-lite (Zero-shot),HER2,equivocal,0,0.0,0.0,0.975,0.0,0.906,"[0.879, 0.931]",521
+Gemini-2.5-flash-lite (Zero-shot),HER2,negative,221,0.915,0.923,0.937,0.919,0.906,"[0.879, 0.931]",521
+Gemini-2.5-flash-lite (Zero-shot),HER2,not reported,251,0.952,0.94,0.956,0.946,0.906,"[0.879, 0.931]",521
+Gemini-2.5-flash-lite (Zero-shot),HER2,positive,49,0.865,0.653,0.989,0.744,0.906,"[0.879, 0.931]",521
+Gemini-2.5-flash-lite (Zero-shot),ER,negative,67,0.896,0.896,0.985,0.896,0.9424,"[0.921, 0.962]",521
+Gemini-2.5-flash-lite (Zero-shot),ER,not reported,240,0.97,0.942,0.975,0.956,0.9424,"[0.921, 0.962]",521
+Gemini-2.5-flash-lite (Zero-shot),ER,positive,214,0.928,0.958,0.948,0.943,0.9424,"[0.921, 0.962]",521
+Gemini-2.5-flash-lite (Zero-shot),PR,negative,106,0.907,0.915,0.976,0.911,0.9386,"[0.917, 0.958]",521
+Gemini-2.5-flash-lite (Zero-shot),PR,not reported,240,0.974,0.942,0.979,0.958,0.9386,"[0.917, 0.958]",521
+Gemini-2.5-flash-lite (Zero-shot),PR,positive,175,0.912,0.949,0.954,0.93,0.9386,"[0.917, 0.958]",521
+Gemini-2.5-flash-lite (Zero-shot),Tumor Size,2-5 cm,288,0.894,0.875,0.871,0.884,0.81,"[0.775, 0.845]",521
+Gemini-2.5-flash-lite (Zero-shot),Tumor Size,< 2 cm,99,0.781,0.899,0.941,0.836,0.81,"[0.775, 0.845]",521
+Gemini-2.5-flash-lite (Zero-shot),Tumor Size,> 5 cm,62,0.825,0.758,0.978,0.79,0.81,"[0.775, 0.845]",521
+Gemini-2.5-flash-lite (Zero-shot),Tumor Size,not reported,72,0.5,0.472,0.924,0.486,0.81,"[0.775, 0.845]",521
+Gemini-2.5-flash-lite (Few-shot),HER2,equivocal,0,0.0,0.0,0.985,0.0,0.9175,"[0.894, 0.939]",521
+Gemini-2.5-flash-lite (Few-shot),HER2,negative,221,0.912,0.941,0.933,0.927,0.9175,"[0.894, 0.939]",521
+Gemini-2.5-flash-lite (Few-shot),HER2,not reported,251,0.967,0.94,0.97,0.954,0.9175,"[0.894, 0.939]",521
+Gemini-2.5-flash-lite (Few-shot),HER2,positive,49,0.829,0.694,0.985,0.756,0.9175,"[0.894, 0.939]",521
+Gemini-2.5-flash-lite (Few-shot),ER,negative,67,0.894,0.881,0.985,0.887,0.9405,"[0.919, 0.960]",521
+Gemini-2.5-flash-lite (Few-shot),ER,not reported,240,0.962,0.95,0.968,0.956,0.9405,"[0.919, 0.960]",521
+Gemini-2.5-flash-lite (Few-shot),ER,positive,214,0.931,0.949,0.951,0.94,0.9405,"[0.919, 0.960]",521
+Gemini-2.5-flash-lite (Few-shot),PR,negative,106,0.933,0.915,0.983,0.924,0.9424,"[0.921, 0.962]",521
+Gemini-2.5-flash-lite (Few-shot),PR,not reported,240,0.966,0.954,0.972,0.96,0.9424,"[0.921, 0.962]",521
+Gemini-2.5-flash-lite (Few-shot),PR,positive,175,0.917,0.943,0.957,0.93,0.9424,"[0.921, 0.962]",521
+Gemini-2.5-flash-lite (Few-shot),Tumor Size,2-5 cm,288,0.896,0.865,0.876,0.88,0.81,"[0.777, 0.845]",521
+Gemini-2.5-flash-lite (Few-shot),Tumor Size,< 2 cm,99,0.822,0.889,0.955,0.854,0.81,"[0.777, 0.845]",521
+Gemini-2.5-flash-lite (Few-shot),Tumor Size,> 5 cm,62,0.797,0.823,0.972,0.81,0.81,"[0.777, 0.845]",521
+Gemini-2.5-flash-lite (Few-shot),Tumor Size,not reported,72,0.472,0.472,0.915,0.472,0.81,"[0.777, 0.845]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),HER2,equivocal,0,0.0,0.0,0.983,0.0,0.9194,"[0.894, 0.942]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),HER2,negative,221,0.92,0.941,0.94,0.931,0.9194,"[0.894, 0.942]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),HER2,not reported,251,0.96,0.948,0.963,0.954,0.9194,"[0.894, 0.942]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),HER2,positive,49,0.868,0.673,0.989,0.759,0.9194,"[0.894, 0.942]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),ER,negative,67,0.894,0.881,0.985,0.887,0.952,"[0.933, 0.969]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),ER,not reported,240,0.971,0.967,0.975,0.969,0.952,"[0.933, 0.969]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),ER,positive,214,0.949,0.958,0.964,0.953,0.952,"[0.933, 0.969]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),PR,negative,106,0.933,0.915,0.983,0.924,0.952,"[0.933, 0.969]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),PR,not reported,240,0.975,0.967,0.979,0.971,0.952,"[0.933, 0.969]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),PR,positive,175,0.933,0.954,0.965,0.944,0.952,"[0.933, 0.969]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),Tumor Size,2-5 cm,288,0.896,0.872,0.876,0.884,0.8119,"[0.779, 0.845]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),Tumor Size,< 2 cm,99,0.827,0.869,0.957,0.847,0.8119,"[0.779, 0.845]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),Tumor Size,> 5 cm,62,0.785,0.823,0.969,0.803,0.8119,"[0.779, 0.845]",521
+Gemini-2.5-flash-lite (Chain-of-Thought),Tumor Size,not reported,72,0.486,0.486,0.918,0.486,0.8119,"[0.779, 0.845]",521

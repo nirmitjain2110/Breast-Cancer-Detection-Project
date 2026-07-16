@@ -1,4 +1,4 @@
-!pip install openai pandas openpyxl --quiet
+
 
 import os
 import json
@@ -46,7 +46,7 @@ def extract_features_openai(report_context, rag_context=""):
     """
 
     prompt = f"""
-You are a medical data extraction system. Do NOT reveal internal chain-of-thought or private model reasoning.
+You are a medical data extraction system. Do NOT reveal internal few shot or private model reasoning.
 Instead, produce a concise, external step-by-step extraction log (1-3 short bullets per biomarker) called "extraction_rationale".
 
 Task:

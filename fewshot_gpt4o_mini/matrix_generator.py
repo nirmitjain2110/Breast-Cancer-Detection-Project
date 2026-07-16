@@ -1,253 +1,338 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import numpy as np
 import re
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 import warnings
-warnings.filterwarnings('ignore')
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix,
+    classification_report
+)
+
+warnings.filterwarnings("ignore")
 
 # ========= 1. Load the Excel files =========
 gt_path = "GroundTruth.xlsx"
-pred_fewshot_path = "fewshot_gpt4o_mini.xlsx"
+pred_gemini_path = "features_openai_gpt5_zs.xlsx"
 
 df_gt = pd.read_excel(gt_path)
-df_pred_fewshot = pd.read_excel(pred_fewshot_path)
+df_pred_gemini = pd.read_excel(pred_gemini_path)
 
-# ========= 2. Merge on File Name (Few-shot) =========
+# ========= 2. Merge on File Name =========
 df_merged = pd.merge(
     df_gt,
-    df_pred_fewshot,
+    df_pred_gemini,
     left_on="File Name",
     right_on="Source File Name",
     how="inner",
     suffixes=("_gt", "_pred")
 )
 
-print(f"Total matched records (Few-shot): {len(df_merged)}\n")
+print(f"Total matched records (Gemini): {len(df_merged)}\n")
 
-# ========= 3. Normalization Functions =========
+# ==========================================================
+#               NORMALIZATION FUNCTIONS
+# ==========================================================
 
 def normalize_her2(value):
     """
     Convert HER2 scores to binary classification
-    0, 1+, 2+ -> negative
+    0,1+,2+ -> negative
     3+ -> positive
     """
     if pd.isna(value):
         return "not reported"
-    
-    value_str = str(value).strip().lower()
-    
-    if "not" in value_str or "nan" in value_str or value_str == "":
+
+    value = str(value).strip().lower()
+
+    if "not" in value or value == "" or value == "nan":
         return "not reported"
-    if value_str in ["0", "1+", "2+", "1", "2"]:
+
+    if value in ["0", "1", "2", "1+", "2+"]:
         return "negative"
-    if value_str in ["3+", "3", "positive"]:
+
+    if value in ["3", "3+", "positive"]:
         return "positive"
-    
+
     return "not reported"
+
 
 def normalize_binary(value):
     """
-    Normalize binary classifications (ER, PR)
+    Normalize ER and PR values
     """
     if pd.isna(value):
         return "not reported"
-    
-    value_str = str(value).strip().lower()
-    
-    if "not" in value_str or "nan" in value_str or value_str == "":
+
+    value = str(value).strip().lower()
+
+    if "not" in value or value == "" or value == "nan":
         return "not reported"
-    if "positive" in value_str or value_str in ["pos"]:
+
+    if "positive" in value or value == "pos":
         return "positive"
-    if "negative" in value_str or value_str in ["neg"]:
+
+    if "negative" in value or value == "neg":
         return "negative"
-    
+
     return "not reported"
+
 
 def extract_tumor_size(value):
     """
-    Extract largest tumor size from various formats
-    Handles: 1.8 cm, 7 x 4 x 8, 1.5 x 1.3 x 1.2 cm, multiple tumors like "23 mm and 12 mm"
-    Returns the single largest dimension in cm
+    Extract largest tumor size and convert to cm.
     """
+
     if pd.isna(value):
         return "not reported"
-    
-    value_str = str(value).strip().lower()
-    
-    if "not" in value_str or value_str == "" or "nan" in value_str:
+
+    value = str(value).lower().strip()
+
+    if value == "" or "not" in value or value == "nan":
         return "not reported"
-    
-    # Remove common units and whitespace
-    value_str = value_str.replace("cm", "").replace("mm", "").replace("x", " ").replace("×", " ")
-    value_str = value_str.replace("\"", "").replace("'", "")
-    
-    # Extract all numbers (including decimals)
-    numbers = re.findall(r'[\d.]+', value_str)
-    
-    if not numbers:
+
+    value = (
+        value.replace("cm", "")
+        .replace("mm", "")
+        .replace("×", " ")
+        .replace("x", " ")
+    )
+
+    numbers = re.findall(r"[\d.]+", value)
+
+    if len(numbers) == 0:
         return "not reported"
-    
-    # Convert to floats
+
     try:
-        numbers = [float(n) for n in numbers if float(n) > 0]
+        numbers = [float(i) for i in numbers if float(i) > 0]
     except:
         return "not reported"
-    
-    if not numbers:
+
+    if len(numbers) == 0:
         return "not reported"
-    
-    # Get the largest dimension
-    max_size = max(numbers)
-    
-    # Convert mm to cm if needed (assume value > 10 is in mm)
-    if max_size > 10 and max_size < 100:
-        max_size = max_size / 10
-    
-    return round(max_size, 2)
+
+    largest = max(numbers)
+
+    # assume values >10 are in mm
+    if 10 < largest < 100:
+        largest = largest / 10
+
+    return round(largest, 2)
+
 
 def categorize_tumor_size(size):
-    """
-    Categorize tumor size into clinical categories
-    """
+
     if size == "not reported":
         return "not reported"
-    
+
     try:
         size = float(size)
+
         if size < 2:
             return "< 2 cm"
+
         elif size < 5:
             return "2-5 cm"
+
         else:
             return "> 5 cm"
+
     except:
         return "not reported"
 
-# ========= 4. Apply normalizations =========
-print("Normalizing Few-shot data...")
 
-# HER2 Normalization
+# ==========================================================
+# Apply Normalization
+# ==========================================================
+
+print("Normalizing data...\n")
+
+# HER2
 df_merged["HER2_gt_norm"] = df_merged["HER2_gt"].apply(normalize_her2)
 df_merged["HER2_pred_norm"] = df_merged["HER2_pred"].apply(normalize_her2)
 
-# ER Normalization
+# ER
 df_merged["ER_gt_norm"] = df_merged["ER_gt"].apply(normalize_binary)
 df_merged["ER_pred_norm"] = df_merged["ER_pred"].apply(normalize_binary)
 
-# PR Normalization
+# PR
 df_merged["PR_gt_norm"] = df_merged["PR_gt"].apply(normalize_binary)
 df_merged["PR_pred_norm"] = df_merged["PR_pred"].apply(normalize_binary)
 
-# Tumor Size Extraction & Categorization
-df_merged["tumor_size_gt_raw"] = df_merged["Tumor Size "].apply(extract_tumor_size)
-df_merged["tumor_size_pred_raw"] = df_merged["Tumor Size"].apply(extract_tumor_size)
+# Tumor Size
+df_merged["tumor_size_gt_raw"] = df_merged["Tumor Size "].apply(
+    extract_tumor_size
+)
+df_merged["tumor_size_pred_raw"] = df_merged["Tumor Size"].apply(
+    extract_tumor_size
+)
 
-df_merged["tumor_size_gt_cat"] = df_merged["tumor_size_gt_raw"].apply(categorize_tumor_size)
-df_merged["tumor_size_pred_cat"] = df_merged["tumor_size_pred_raw"].apply(categorize_tumor_size)
+df_merged["tumor_size_gt_cat"] = df_merged["tumor_size_gt_raw"].apply(
+    categorize_tumor_size
+)
 
-# ========= 5. Compute and Display Metrics for All Targets =========
+df_merged["tumor_size_pred_cat"] = df_merged["tumor_size_pred_raw"].apply(
+    categorize_tumor_size
+)
+
+# ==========================================================
+# Evaluation
+# ==========================================================
+
 targets = {
     "HER2": ("HER2_gt_norm", "HER2_pred_norm"),
     "ER": ("ER_gt_norm", "ER_pred_norm"),
     "PR": ("PR_gt_norm", "PR_pred_norm"),
-    "Tumor Size": ("tumor_size_gt_cat", "tumor_size_pred_cat")
+    "Tumor Size": ("tumor_size_gt_cat", "tumor_size_pred_cat"),
 }
 
-results = {}
-fig, axes = plt.subplots(2, 2, figsize=(16, 14))
-axes = axes.flatten()
+results = []
 
-for idx, (target_name, (gt_col, pred_col)) in enumerate(targets.items()):
-    print(f"\n{'='*70}")
-    print(f"Target: {target_name}")
-    print(f"{'='*70}")
-    
+print("=" * 90)
+print("MODEL EVALUATION METRICS")
+print("=" * 90)
+
+for target_name, (gt_col, pred_col) in targets.items():
+
     y_true = df_merged[gt_col]
     y_pred = df_merged[pred_col]
-    
-    # Compute accuracy
-    acc = accuracy_score(y_true, y_pred)
-    results[target_name] = {"accuracy": acc}
-    
-    print(f"Accuracy: {acc:.4f} ({acc*100:.2f}%)")
-    print(f"\nClassification Report:")
+
+    # ---------------- Accuracy ----------------
+    accuracy = accuracy_score(y_true, y_pred)
+
+    # ---------------- Precision ----------------
+    precision = precision_score(
+        y_true,
+        y_pred,
+        average="macro",
+        zero_division=0,
+    )
+
+    # ---------------- Recall ----------------
+    recall = recall_score(
+        y_true,
+        y_pred,
+        average="macro",
+        zero_division=0,
+    )
+
+    # ---------------- F1 ----------------
+    f1 = f1_score(
+        y_true,
+        y_pred,
+        average="macro",
+        zero_division=0,
+    )
+
+    # ---------------- Specificity ----------------
+
+    labels = sorted(list(set(y_true) | set(y_pred)))
+
+    cm = confusion_matrix(
+        y_true,
+        y_pred,
+        labels=labels,
+    )
+
+    specificity_scores = []
+
+    for i in range(len(labels)):
+
+        TP = cm[i, i]
+
+        FN = cm[i, :].sum() - TP
+
+        FP = cm[:, i].sum() - TP
+
+        TN = cm.sum() - TP - FP - FN
+
+        if (TN + FP) == 0:
+            specificity_scores.append(0)
+
+        else:
+            specificity_scores.append(TN / (TN + FP))
+
+    specificity = np.mean(specificity_scores)
+
+    print("\n" + "=" * 70)
+    print(target_name)
+    print("=" * 70)
+
+    print(f"Accuracy    : {accuracy:.4f} ({accuracy*100:.2f}%)")
+    print(f"Precision   : {precision:.4f}")
+    print(f"Recall      : {recall:.4f}")
+    print(f"F1 Score    : {f1:.4f}")
+    print(f"Specificity : {specificity:.4f}")
+
+    print("\nClassification Report\n")
     print(classification_report(y_true, y_pred, zero_division=0))
-    
-    # ========= Confusion Matrix =========
-    labels = sorted(list(set(y_true.dropna().unique()) | set(y_pred.dropna().unique())))
-    cm = confusion_matrix(y_true, y_pred, labels=labels)
-    
-    # Plot confusion matrix in subplot
-    ax = axes[idx]
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
-                xticklabels=labels, yticklabels=labels, 
-                cbar_kws={'label': 'Count'}, ax=ax)
-    ax.set_xlabel("Predicted (GPT-4o Mini - Few-shot)", fontsize=11, fontweight='bold')
-    ax.set_ylabel("Ground Truth", fontsize=11, fontweight='bold')
-    ax.set_title(f"Confusion Matrix: {target_name}\n(Accuracy = {acc:.2%})", 
-                fontsize=12, fontweight='bold')
-    
-    # Save individual confusion matrix
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
-                xticklabels=labels, yticklabels=labels, cbar_kws={'label': 'Count'})
-    plt.xlabel("Predicted (GPT-4o Mini - Few-shot)", fontsize=12, fontweight='bold')
-    plt.ylabel("Ground Truth", fontsize=12, fontweight='bold')
-    plt.title(f"Confusion Matrix: {target_name} (Few-shot)\n(Accuracy = {acc:.2%})", 
-              fontsize=14, fontweight='bold')
-    plt.tight_layout()
-    plt.savefig(f"confusion_matrix_{target_name.replace(' ', '_')}_fewshot.png", 
-                dpi=300, bbox_inches='tight')
-    plt.close()
-    
-    print(f"\n✓ Saved: confusion_matrix_{target_name.replace(' ', '_')}_fewshot.png")
 
-# Save combined figure
-plt.figure(fig.number)
-plt.tight_layout()
-plt.savefig("confusion_matrices_all_fewshot.png", dpi=300, bbox_inches='tight')
-plt.close()
+    results.append({
+        "Target": target_name,
+        "Accuracy (%)": round(accuracy * 100, 2),
+        "Precision (%)": round(precision * 100, 2),
+        "Recall (%)": round(recall * 100, 2),
+        "F1 Score (%)": round(f1 * 100, 2),
+        "Specificity (%)": round(specificity * 100, 2),
+    })
 
-# ========= 6. Summary Report =========
-print(f"\n{'='*70}")
-print("SUMMARY - ACCURACY SCORES (FEW-SHOT)")
-print(f"{'='*70}")
-for target, metrics in results.items():
-    print(f"{target:15s}: {metrics['accuracy']:.2%}")
+# ==========================================================
+# Summary Table
+# ==========================================================
 
-# ========= 7. Save Summary to CSV =========
-summary_df = pd.DataFrame([
-    {"Target": target, "Accuracy": metrics['accuracy'], "Accuracy %": f"{metrics['accuracy']*100:.2f}%"}
-    for target, metrics in results.items()
-])
+summary_df = pd.DataFrame(results)
 
-summary_df.to_csv("accuracy_summary_fewshot.csv", index=False)
-print(f"\n✓ Summary saved to: accuracy_summary_fewshot.csv")
+print("\n")
+print("=" * 90)
+print("SUMMARY")
+print("=" * 90)
 
-# ========= 8. Sample Predictions =========
-print(f"\n{'='*70}")
-print("SAMPLE PREDICTIONS (First 10 rows)")
-print(f"{'='*70}\n")
+print(summary_df.to_string(index=False))
 
-sample_cols = [
-    "File Name", 
-    "HER2_gt", "HER2_gt_norm", "HER2_pred", "HER2_pred_norm",
-    "ER_gt", "ER_gt_norm", "ER_pred", "ER_pred_norm",
-    "PR_gt", "PR_gt_norm", "PR_pred", "PR_pred_norm",
-    "Tumor Size ", "tumor_size_gt_cat", "Tumor Size", "tumor_size_pred_cat"
+# ==========================================================
+# Save Results
+# ==========================================================
+
+summary_df.to_csv(
+    "evaluation_metrics_gemini.csv",
+    index=False,
+)
+
+print("\n✓ Saved evaluation_metrics_gemini.csv")
+
+# ==========================================================
+# Sample Predictions
+# ==========================================================
+
+print("\n")
+print("=" * 90)
+print("FIRST 10 SAMPLES")
+print("=" * 90)
+
+sample_columns = [
+    "File Name",
+    "HER2_gt",
+    "HER2_gt_norm",
+    "HER2_pred",
+    "HER2_pred_norm",
+    "ER_gt",
+    "ER_gt_norm",
+    "ER_pred",
+    "ER_pred_norm",
+    "PR_gt",
+    "PR_gt_norm",
+    "PR_pred",
+    "PR_pred_norm",
+    "Tumor Size ",
+    "tumor_size_gt_cat",
+    "Tumor Size",
+    "tumor_size_pred_cat",
 ]
 
-sample = df_merged[sample_cols].head(10)
-print(sample.to_string())
+print(df_merged[sample_columns].head(10).to_string(index=False))
 
-print("\n✓ Analysis complete!")
-print(f"\nGenerated Files:")
-print("  1. confusion_matrix_HER2_fewshot.png")
-print("  2. confusion_matrix_ER_fewshot.png")
-print("  3. confusion_matrix_PR_fewshot.png")
-print("  4. confusion_matrix_Tumor_Size_fewshot.png")
-print("  5. confusion_matrices_all_fewshot.png (combined)")
-print("  6. accuracy_summary_fewshot.csv")
+print("\n✓ Analysis Complete!")
+print("Generated File:")
+print("1. evaluation_metrics_gemini.csv")
